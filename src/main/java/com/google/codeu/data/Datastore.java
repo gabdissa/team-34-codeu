@@ -53,14 +53,15 @@ public class Datastore {
    *     message. List is sorted by time descending.
    */
 
+
   List<Message> messages = new ArrayList<>();
-  Query query = new Query("Message").addSort("timestamp", SortDirection.DESCENDING);
-  PreparedQuery results = datastore.prepare(query);
 
   public List<Message> getMessages(String user) {
-    query.setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
-    
-    /** THIS TEST CODE IS NOT NEEDED SINCE getAllMessages() checks these conditions
+    Query query = new Query("Message")
+            .addSort("timestamp", SortDirection.DESCENDING)
+            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
+    PreparedQuery results = datastore.prepare(query);
+
     for (Entity entity : results.asIterable()) {
       try {
         String idString = entity.getKey().getName();
@@ -76,12 +77,12 @@ public class Datastore {
         e.printStackTrace();
       }
     }
-     */
-
     return messages;
   }
   public List<Message> getAllMessages(){
-
+    Query query = new Query("Message")
+            .addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
       try {
         String idString = entity.getKey().getName();
