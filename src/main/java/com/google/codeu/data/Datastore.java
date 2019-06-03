@@ -42,7 +42,6 @@ public class Datastore {
     messageEntity.setProperty("user", message.getUser());
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
-
     datastore.put(messageEntity);
   }
 
@@ -54,9 +53,9 @@ public class Datastore {
    */
 
 
-  List<Message> messages = new ArrayList<>();
 
   public List<Message> getMessages(String user) {
+    List<Message> messages = new ArrayList<>();
     Query query = new Query("Message")
             .addSort("timestamp", SortDirection.DESCENDING)
             .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
@@ -80,6 +79,7 @@ public class Datastore {
     return messages;
   }
   public List<Message> getAllMessages(){
+    List<Message> messages = new ArrayList<>();
     Query query = new Query("Message")
             .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
@@ -99,6 +99,6 @@ public class Datastore {
         e.printStackTrace();
       }
     }
-  return messages;
+    return messages;
  }
 }
