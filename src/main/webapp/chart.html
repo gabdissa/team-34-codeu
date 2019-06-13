@@ -7,30 +7,50 @@
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
-            var book_data = new google.visualization.DataTable();
-            //define columns for the DataTable instance
-            book_data.addColumn('string', 'Book Title');
-            book_data.addColumn('number', 'Votes');
-            //add data to book_data
-            book_data.addRows([
-                ["The Best We Could Do", 6],
-                ["Sing, Unburied, Sing", 10],
-                ["The Book of Unknown Americans", 7],
-                ["The 57 Bus", 4],
-                ["The Handmaid's Tale", 8]
+            var class_data = new google.visualization.DataTable();
+            class_data.addColumn('string', 'Class');
+            class_data.addColumn('number', 'Attendance');
+            class_data.addRows([
+                ["Freshmen", 250],
+                ["Sophmores", 200],
+                ["Juniors", 160],
+                ["Seniors", 230],
+                ["Post-Grad Students", 100]
             ]);
-            var chart = new google.visualization.BarChart(document.getElementById('book_chart'));
+            var chart = new google.visualization.BarChart(document.getElementById('class_chart'));
             var chart_options = {
+                          title: 'Total Membership by Class Year',
                           width: 800,
                           height: 400
             };
-            chart.draw(book_data, chart_options);
+            chart.draw(class_data, chart_options);
         }
       </script>
-    <title>A New Chart</title>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+      </script>
+      <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart(){
+            var type_data = new google.visualization.arrayToDataTable([
+                ['Type', 'Number of Students Involved'],
+                ['Academic',     80],
+                ['Fitness Rec',      200],
+                ['Cultural',  250],
+                ['Community Service', 140],
+                ['Media/PR',    70]
+            ]);
+
+            var options = { title: 'Attendance by Club Types'}
+            var chart = new google.visualization.PieChart(document.getElementById('type_chart'));
+            chart.draw(type_data, options);
+        }
+      </script>
+    <title>App Charts!</title>
   </head>
   <body>
-    <h1>Book Chart</h1>
-    <div id='book_chart'></div>
+    <h1>User Insight</h1>
+    <div id='class_chart'></div>
+    <div id="type_chart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
