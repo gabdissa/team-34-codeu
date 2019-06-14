@@ -27,6 +27,12 @@
   border-radius: 5px;
   margin-top: 20px;
 }
+/* Restricts the size of images so they fit in the display box  */
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}
 
 /* Add a bottom border to the message header. */
 .message-header {
