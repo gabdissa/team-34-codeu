@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+      <title>A New Chart</title>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
       </script>
       <script type="text/javascript">
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
+            /*
             var class_data = new google.visualization.DataTable();
             class_data.addColumn('string', 'Class');
             class_data.addColumn('number', 'Attendance');
@@ -24,8 +27,17 @@
                           height: 400
             };
             chart.draw(class_data, chart_options);
+            */
+            fetch("/bookchart").
+            then((response) => {
+             return response.json();
+            })
+            .then((bookJson) => {
+              console.log(bookJson);
+            });
         }
       </script>
+      <!--
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
       </script>
       <script type="text/javascript">
@@ -47,6 +59,7 @@
         }
       </script>
     <title>App Charts!</title>
+    -->
   </head>
   <body>
     <h1>User Insight</h1>
@@ -54,3 +67,4 @@
     <div id="type_chart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
+
