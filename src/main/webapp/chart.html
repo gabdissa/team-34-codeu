@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <title>App Charts!</title>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
       </script>
       <script type="text/javascript">
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
+            /*
             var class_data = new google.visualization.DataTable();
             class_data.addColumn('string', 'Class');
             class_data.addColumn('number', 'Attendance');
@@ -24,8 +26,33 @@
                           height: 400
             };
             chart.draw(class_data, chart_options);
+            */
+            fetch("/bookchart").
+            then((response) => {
+             return response.json();
+            })
+            .then((bookJson) => {
+                var bookData = new google.visualization.DataTable();
+                bookData.addColumn('string', 'Book Title');
+                bookData.addColumn('number', 'Rating');
+
+                for (i = 0; i < bookJson.length; i++) {
+                    bookRow = [];
+                    var title = bookJson[i].title;
+                    var ratings = bookJson[i].rating;
+                    bookRow.push(title, ratings);
+                    bookData.addRow(bookRow);
+                }
+                var chartOptions = {
+                                 width: 800,
+                                 height: 400
+                   };
+               var bookChart = new google.visualization.BarChart(document.getElementById('book_chart'));
+               bookChart.draw(bookData, chartOptions);
+            });
         }
       </script>
+      <!--
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
       </script>
       <script type="text/javascript">
@@ -46,11 +73,15 @@
             chart.draw(type_data, options);
         }
       </script>
-    <title>App Charts!</title>
+      -->
   </head>
   <body>
     <h1>User Insight</h1>
+    <!--
     <div id='class_chart'></div>
     <div id="type_chart" style="width: 900px; height: 500px;"></div>
+    -->
+    <div id = "book_chart"></div>
   </body>
 </html>
+
