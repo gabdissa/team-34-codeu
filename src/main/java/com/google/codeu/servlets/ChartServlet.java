@@ -17,15 +17,14 @@
 
 package com.google.codeu.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -59,7 +58,6 @@ public class ChartServlet extends HttpServlet {
 
             String curTitle = cells[5];
             double curRating = Double.parseDouble(cells[6]);
-
             bookRatingArray.add(gson.toJsonTree(new bookRating(curTitle, curRating)));
         }
         scanner.close();
