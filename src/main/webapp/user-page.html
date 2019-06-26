@@ -45,3 +45,19 @@ limitations under the License.
 
   </body>
 </html>
+
+
+<!--
+  Want a user's "about me" description to display on their user page. We also want to add the ability to edit their description.
+-->
+
+<div id="about-me-container">Loading...</div>
+  <div id="about-me-form" class="hidden">
+  <form action="/about" method="POST">
+    <textarea name="about-me" placeholder="about me" rows=4 required></textarea>
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+
