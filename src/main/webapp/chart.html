@@ -27,34 +27,32 @@
             };
             chart.draw(class_data, chart_options);
             */
-            fetch("/bookchart").
+            fetch("/clubchart").
             then((response) => {
-             return response.json();
+              return response.json();
             })
-            .then((bookJson) => {
-                var bookData = new google.visualization.DataTable();
-                bookData.addColumn('string', 'Book Title');
-                bookData.addColumn('number', 'Rating');
+            .then((clubJson) => {
+                var clubData = new google.visualization.DataTable();
+                clubData.addColumn('string', 'Type of Organization');
+                clubData.addColumn('number', 'Rating');
 
-                for (i = 0; i < bookJson.length; i++) {
-                    bookRow = [];
-                    var title = bookJson[i].title;
-                    var ratings = bookJson[i].rating;
-                    bookRow.push(title, ratings);
-                    bookData.addRow(bookRow);
+                for (i = 0; i < clubJson.length; i++) {
+                    clubRow = [];
+                    var title = clubJson[i].title;
+                    var ratings = clubJson[i].rating;
+                    clubRow.push(title, ratings);
+                    clubData.addRow(clubRow);
                 }
                 var chartOptions = {
+                                 title: 'Club Ratings by Type',
                                  width: 800,
                                  height: 400
                    };
-               var bookChart = new google.visualization.BarChart(document.getElementById('book_chart'));
-               bookChart.draw(bookData, chartOptions);
-               console.log(bookJson)
+               var clubChart = new google.visualization.BarChart(document.getElementById('club_chart'));
+               clubChart.draw(clubData, chartOptions);
+               console.log(clubJson)
             });
         }
-      </script>
-      <!--
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
       </script>
       <script type="text/javascript">
         google.charts.load('current', {packages: ['corechart']});
@@ -74,7 +72,7 @@
             chart.draw(type_data, options);
         }
       </script>
-      -->
+
   </head>
   <body>
     <nav>
@@ -85,9 +83,9 @@
     <h1>User Insight</h1>
     <!--
     <div id='class_chart'></div>
-    <div id="type_chart" style="width: 900px; height: 500px;"></div>
     -->
-    <div id = "book_chart"></div>
+    <div id="type_chart" style="width: 900px; height: 500px;"></div>
+    <div id = "club_chart"></div>
   </body>
 </html>
 
