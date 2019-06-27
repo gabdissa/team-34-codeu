@@ -30,7 +30,7 @@ import java.util.Scanner;
 /**
  * Redirects the user to the Google login page or their page if they're already logged in.
  */
-@WebServlet("/clubchart")
+@WebServlet("/barchart")
 public class BarChartServlet extends HttpServlet {
 
     private JsonArray clubRatingArray;
