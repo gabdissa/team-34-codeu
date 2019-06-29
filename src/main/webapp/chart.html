@@ -39,6 +39,33 @@
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
+            fetch("/piechart").
+            then((response) => {
+              return response.json();
+            })
+            .then((attendanceJson) => {
+                var attendanceData = new google.visualization.DataTable();
+                attendanceData.addColumn('string', 'Membership by Organization Type');
+                attendanceData.addColumn('number', 'Attendance');
+
+                for (i = 0; i < attendanceJson.length; i++) {
+                    attendanceRow = [];
+                    var title = attendanceJson[i].title;
+                    var attendance = attendanceJson[i].attendance;
+                    attendanceRow.push(title, attendance);
+                    attendanceData.addRow(attendanceRow);
+                }
+                var chartOptions = {
+                                 title: 'Membership by Type',
+                                 width: 800,
+                                 height: 400
+                   };
+               var attendanceChart = new google.visualization.PieChart(document.getElementById('type_chart'));
+               attendanceChart.draw(attendanceData, chartOptions);
+               console.log(attendanceJson)
+            });
+        }
+            /*
             var type_data = new google.visualization.arrayToDataTable([
                 ['Type', 'Number of Students Involved'],
                 ['Academic',     80],
@@ -51,7 +78,7 @@
             var options = { title: 'Attendance by Club Types'}
             var chart = new google.visualization.PieChart(document.getElementById('type_chart'));
             chart.draw(type_data, options);
-        }
+            */
       </script>
 
   </head>
