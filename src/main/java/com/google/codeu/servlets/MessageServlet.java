@@ -29,6 +29,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import com.google.codeu.data.User;
+
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -78,6 +84,12 @@ public class MessageServlet extends HttpServlet {
     String user = userService.getCurrentUser().getEmail();
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
+    Document doc = Document.newBuilder().setContent(userText).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    float score = sentiment.getScore();
+    languageService.close();
+
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
@@ -85,6 +97,18 @@ public class MessageServlet extends HttpServlet {
     Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
 
+    // Output the sentiment score as HTML.
+    // A real project would probably store the score in Datastore.
+    System.out.println("The score is " + score);
     response.sendRedirect("/user-page.html?user=" + user);
+
+    // // Output the sentiment score as HTML.
+    // // A real project would probably store the score in Datastore.
+    // response.setContentType("text/html;");
+    // response.getOutputStream().println("<h1>Sentiment Analysis</h1>");
+    // response.getOutputStream().println("<p>You entered: " + userText + "</p>");
+    // response.getOutputStream().println("<p>Sentiment analysis score: " + score + "</p>");
+    // response.getOutputStream().println("<p><a href=\"/\">Back</a></p>");
+
   }
 }
