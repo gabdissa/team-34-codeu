@@ -43,6 +43,7 @@ public class Datastore {
     messageEntity.setProperty("user", message.getUser());
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
+    messageEntity.setProperty("score", message.getScore());
     datastore.put(messageEntity);
   }
 
@@ -68,8 +69,9 @@ public class Datastore {
         UUID id = UUID.fromString(idString);
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        float score = (float) entity.getProperty("score");
 
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, score);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
@@ -100,8 +102,9 @@ public class Datastore {
         String user = (String) entity.getProperty("user");
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        float score = (float) entity.getProperty("score");
 
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, score);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");

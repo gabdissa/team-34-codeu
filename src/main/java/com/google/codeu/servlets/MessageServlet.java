@@ -34,6 +34,7 @@ import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
 import com.google.codeu.data.User;
+import java.util.UUID;
 
 
 /** Handles fetching and saving {@link Message} instances. */
@@ -94,21 +95,11 @@ public class MessageServlet extends HttpServlet {
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
 
-    Message message = new Message(user, textWithImagesReplaced);
+    Message message = new Message(UUID.randomUUID(), user,textWithImagesReplaced, System.currentTimeMillis(), score);
     datastore.storeMessage(message);
 
-    // Output the sentiment score as HTML.
-    // A real project would probably store the score in Datastore.
-    System.out.println("The score is " + score);
+    // System.out.println("The score is " + score);
     response.sendRedirect("/user-page.html?user=" + user);
-
-    // // Output the sentiment score as HTML.
-    // // A real project would probably store the score in Datastore.
-    // response.setContentType("text/html;");
-    // response.getOutputStream().println("<h1>Sentiment Analysis</h1>");
-    // response.getOutputStream().println("<p>You entered: " + userText + "</p>");
-    // response.getOutputStream().println("<p>Sentiment analysis score: " + score + "</p>");
-    // response.getOutputStream().println("<p><a href=\"/\">Back</a></p>");
 
   }
 }
