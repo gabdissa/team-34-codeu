@@ -25,7 +25,7 @@ public class Message {
   private String user;
   private String text;
   private long timestamp;
-  private float score;
+  private double score;
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
@@ -35,7 +35,7 @@ public class Message {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis(), 0);
   }
 
-  public Message(UUID id, String user, String text, long timestamp, float score) {
+  public Message(UUID id, String user, String text, long timestamp, double score) {
     this.id = id;
     this.user = user;
     this.text = text;
@@ -59,7 +59,7 @@ public class Message {
     return timestamp;
   }
 
-  public float getScore() {
+  public double getScore() {
     return score;
   }
 

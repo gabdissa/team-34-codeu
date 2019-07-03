@@ -88,7 +88,7 @@ public class MessageServlet extends HttpServlet {
     Document doc = Document.newBuilder().setContent(userText).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    float score = sentiment.getScore();
+    double score = sentiment.getScore();
     languageService.close();
 
     String regex = "(https?://\\S+\\.(png|jpg))";
