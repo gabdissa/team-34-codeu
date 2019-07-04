@@ -47,6 +47,18 @@ function showMessageFormIfViewingSelf() {
       document.getElementById('about-me-form').classList.remove('hidden');
 }
 
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('message-form');
+      messageForm.action = imageUploadUrl;
+      messageForm.classList.remove('hidden');
+    });
+  }
+
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
   const url = '/messages?user=' + parameterUsername;
@@ -94,7 +106,7 @@ function buildMessageDiv(message) {
 
 
 /**
- * Use the fetch() function to request the user's about data, 
+ * Use the fetch() function to request the user's about data,
  * and then adds it to the page.
  */
 function fetchAboutMe(){
@@ -106,7 +118,7 @@ function fetchAboutMe(){
     if(aboutMe == ''){
       aboutMe = 'This user has not entered any information yet.';
     }
-    
+
     aboutMeContainer.innerHTML = aboutMe;
 
   });
@@ -117,6 +129,8 @@ function fetchAboutMe(){
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
+  fetchBlobstoreUrlAndShowForm();
   fetchMessages();
   fetchAboutMe();
+
 }
