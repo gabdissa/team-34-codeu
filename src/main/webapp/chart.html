@@ -8,25 +8,6 @@
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
-            /*
-            var class_data = new google.visualization.DataTable();
-            class_data.addColumn('string', 'Class');
-            class_data.addColumn('number', 'Attendance');
-            class_data.addRows([
-                ["Freshmen", 250],
-                ["Sophmores", 200],
-                ["Juniors", 160],
-                ["Seniors", 230],
-                ["Post-Grad Students", 100]
-            ]);
-            var chart = new google.visualization.BarChart(document.getElementById('class_chart'));
-            var chart_options = {
-                          title: 'Total Membership by Class Year',
-                          width: 800,
-                          height: 400
-            };
-            chart.draw(class_data, chart_options);
-            */
             fetch("/barchart").
             then((response) => {
               return response.json();
@@ -58,6 +39,33 @@
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart(){
+            fetch("/piechart").
+            then((response) => {
+              return response.json();
+            })
+            .then((attendanceJson) => {
+                var attendanceData = new google.visualization.DataTable();
+                attendanceData.addColumn('string', 'Membership by Organization Type');
+                attendanceData.addColumn('number', 'Attendance');
+
+                for (i = 0; i < attendanceJson.length; i++) {
+                    attendanceRow = [];
+                    var title = attendanceJson[i].title;
+                    var attendance = attendanceJson[i].attendance;
+                    attendanceRow.push(title, attendance);
+                    attendanceData.addRow(attendanceRow);
+                }
+                var chartOptions = {
+                                 title: 'Membership by Type',
+                                 width: 800,
+                                 height: 400
+                   };
+               var attendanceChart = new google.visualization.PieChart(document.getElementById('type_chart'));
+               attendanceChart.draw(attendanceData, chartOptions);
+               console.log(attendanceJson)
+            });
+        }
+            /*
             var type_data = new google.visualization.arrayToDataTable([
                 ['Type', 'Number of Students Involved'],
                 ['Academic',     80],
@@ -70,7 +78,7 @@
             var options = { title: 'Attendance by Club Types'}
             var chart = new google.visualization.PieChart(document.getElementById('type_chart'));
             chart.draw(type_data, options);
-        }
+            */
       </script>
 
   </head>
@@ -81,11 +89,8 @@
       </ul>
     </nav>
     <h1>User Insight</h1>
-    <!--
-    <div id='class_chart'></div>
-    -->
-    <div id="type_chart" style="width: 900px; height: 500px;"></div>
     <div id = "club_chart"></div>
+    <div id="type_chart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
 
