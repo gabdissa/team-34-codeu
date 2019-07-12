@@ -61,6 +61,9 @@ function fetchMessages() {
         } else {
           messagesContainer.innerHTML = '';
         }
+
+        // compare
+        // messages.sort
         messages.forEach((message) => {
           const messageDiv = buildMessageDiv(message);
           messagesContainer.appendChild(messageDiv);
