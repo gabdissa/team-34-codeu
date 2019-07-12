@@ -100,8 +100,8 @@ public class MessageServlet extends HttpServlet {
       userText = userText +"<img src=\""  + imageUrl + "\">";
     }
 
-    ServletOutputStream out = response.getOutputStream();
-    out.println(userText);
+    // ServletOutputStream out = response.getOutputStream();
+    // out.println(userText);
 
 
     Document doc = Document.newBuilder().setContent(userText).setType(Document.Type.PLAIN_TEXT).build();
@@ -120,7 +120,7 @@ public class MessageServlet extends HttpServlet {
     // System.out.println("The score is " + score);
     response.sendRedirect("/user-page.html?user=" + user);
   }
-  
+
   /**
    * Returns a URL that points to the uploaded file, or null if the user didn't upload a file.
    */
