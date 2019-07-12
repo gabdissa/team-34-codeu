@@ -96,19 +96,16 @@ public class MessageServlet extends HttpServlet {
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
     String imageUrl = getUploadedFileUrl(request,"image");
 
-    if(imageUrl != null){
-      userText = userText +"<img src=\""  + imageUrl + "\">";
-    }
-
-    // ServletOutputStream out = response.getOutputStream();
-    // out.println(userText);
-
 
     Document doc = Document.newBuilder().setContent(userText).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
     double score = sentiment.getScore();
     languageService.close();
+
+    if(imageUrl != null){
+      userText = userText +"<img src=\""  + imageUrl + "\">";
+    }
 
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
