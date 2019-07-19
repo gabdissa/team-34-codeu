@@ -26,21 +26,23 @@ public class Message {
   private String text;
   private long timestamp;
   private double score;
+  private String imageTags;
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
   public Message(String user, String text) {
-    this(UUID.randomUUID(), user, text, System.currentTimeMillis(), 0);
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis(), 0 ,"");
   }
 
-  public Message(UUID id, String user, String text, long timestamp, double score) {
+  public Message(UUID id, String user, String text, long timestamp, double score, String imageTags) {
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
     this.score = score;
+    this.imageTags = imageTags;
   }
 
   public UUID getId() {
@@ -61,6 +63,10 @@ public class Message {
 
   public double getScore() {
     return score;
+  }
+
+  public String getTags() {
+    return imageTags;
   }
 
 }
