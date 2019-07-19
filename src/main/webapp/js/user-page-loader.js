@@ -59,6 +59,23 @@ function fetchBlobstoreUrlAndShowForm() {
     });
   }
 
+
+/** Helper function that compare the sentiment scores of two messages */
+function compare(a,b)
+{
+  scoreA = a.score;
+  scoreB = b.score;
+
+  comparison = 0;
+  if (scoreA > scoreB) {
+    comparison = -1;
+  } else if (scoreA < scoreB) {
+    comparison = 1;
+  }
+  return comparison;
+}
+
+
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
   const url = '/messages?user=' + parameterUsername;
@@ -73,12 +90,17 @@ function fetchMessages() {
         } else {
           messagesContainer.innerHTML = '';
         }
+
+        // sort the messages
+        messages.sort(compare);
+
         messages.forEach((message) => {
           const messageDiv = buildMessageDiv(message);
           messagesContainer.appendChild(messageDiv);
         });
       });
 }
+
 
 /**
  * Builds an element that displays the message.
