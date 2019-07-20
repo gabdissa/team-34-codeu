@@ -113,16 +113,22 @@ function buildMessageDiv(message) {
   headerDiv.appendChild(document.createTextNode(
       message.user + ' - ' + new Date(message.timestamp)));
 
-  headerDiv.appendChild(document.createTextNode(' - Sentiment Score:' + message.score));
+  headerDiv.appendChild(document.createTextNode(' - Sentiment Score: ' + message.score));
 
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
+  //bodyDiv.appendChild(document.createTextNode("<br/>" + message.imageTags));
+
+  const tagsDiv = document.createElement('div');
+  tagsDiv.classList.add('Tags');
+  tagsDiv.innerHTML = message.imageTags;
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
   messageDiv.appendChild(bodyDiv);
+  messageDiv.appendChild(tagsDiv);
 
   return messageDiv;
 }
