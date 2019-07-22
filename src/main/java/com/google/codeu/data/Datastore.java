@@ -123,6 +123,11 @@ public class Datastore {
   Entity userEntity = new Entity("User", user.getEmail());
   userEntity.setProperty("email", user.getEmail());
   userEntity.setProperty("aboutMe", user.getAboutMe());
+  userEntity.setProperty("clubName", user.getClubName());
+  userEntity.setProperty("clubType", user.getClubType());
+  userEntity.setProperty("meetingLocation", user.getAboutMe());
+  userEntity.setProperty("aboutMe", user.getAboutMe());
+
   datastore.put(userEntity);
  }
 
@@ -141,7 +146,10 @@ public class Datastore {
   }
 
   String aboutMe = (String) userEntity.getProperty("aboutMe");
-  User user = new User(email, aboutMe);
+  String clubName = (String) userEntity.getProperty("clubName");
+  String clubType = (String) userEntity.getProperty("clubType");
+  String meetingLocation = (String) userEntity.getProperty("meetingLocation");
+  User user = new User(email, aboutMe, clubName, clubType, meetingLocation);
 
   return user;
  }
