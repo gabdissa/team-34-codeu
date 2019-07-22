@@ -113,22 +113,16 @@ function buildMessageDiv(message) {
   headerDiv.appendChild(document.createTextNode(
       message.user + ' - ' + new Date(message.timestamp)));
 
-  headerDiv.appendChild(document.createTextNode(' - Sentiment Score: ' + message.score));
+  headerDiv.appendChild(document.createTextNode(' - Sentiment Score:' + message.score));
 
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
-  //bodyDiv.appendChild(document.createTextNode("<br/>" + message.imageTags));
-
-  const tagsDiv = document.createElement('div');
-  tagsDiv.classList.add('Tags');
-  tagsDiv.innerHTML = message.imageTags;
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
   messageDiv.appendChild(bodyDiv);
-  messageDiv.appendChild(tagsDiv);
 
   return messageDiv;
 }
@@ -144,12 +138,20 @@ function fetchAboutMe(){
   fetch(url).then((response) => {
     return response.text();
   }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
+
+    const aboutMeContainer = document.getElementById('club-description');
+    const meetingLocationContainer = document.getElementById('meeting-location');
+    const clubNameContainer = document.getElementById('page-title');
+    const clubTypeCOntainer = document.getElementById('club-type');
     if(aboutMe == ''){
       aboutMe = 'This user has not entered any information yet.';
     }
+    var club = JSON.parse(aboutMe);
+    aboutMeContainer.innerHTML = club.aboutMe;
+    meetingLocationContainer.innerHTML =club.meetingLocation;
+    clubNameContainer.innerHTML = club.clubName;
+    clubTypeCOntainer.innerHTML = club.clubType;
 
-    aboutMeContainer.innerHTML = aboutMe;
 
   });
 }
