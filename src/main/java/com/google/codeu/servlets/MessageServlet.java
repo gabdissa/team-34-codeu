@@ -104,7 +104,7 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
 
     //Gets the Url of the Image that the use uplaoded
     BlobKey blobKey = getBlobKey(request, "image");

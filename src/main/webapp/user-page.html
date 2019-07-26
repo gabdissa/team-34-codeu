@@ -22,6 +22,7 @@ limitations under the License.
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
   <body onload="buildUI();">
     <nav>
@@ -33,62 +34,7 @@ limitations under the License.
         <li><a href="/chart.html">Charts</a></li>
       </ul>
     </nav>
-
-
-
-
-
     <h1 id="page-title">User Page</h1>
-    <hr>
-
-    <div id="club-info-container" class="">
-      <h3>Club Description</h3>
-      <p id="club-description">Club Description here</p>
-
-    	<h3>Club Type</h3>
-      <p id="club-type">Academic</p>
-
-      <h3>Meeting Information</h3>
-
-      <p id="meeting-location">Meeting Location:</p>
-      <p id="meetting-days">Meeting Days:</p>
-      <p id="meeting-times">Meeting Times: </p>
-
-    </div>
-    <!--
-      Want a user's "about me" description to display on their user page. We also want to add the ability to edit their description.
-    -->
-    <!-- <div id="about-me-container">Loading...</div> -->
-      <div id="about-me-form" class="hidden">
-        <form action="/about" method="POST">
-              <div class="title">
-                <i class="fas fa-pencil-alt"></i>
-                <h2>Enter Club Details</h2>
-              </div>
-              <div class="info">
-                <br>
-                <input class="fname" type="text" name="club-name" placeholder="Club Name">
-                <br>
-                <input type="text" name="meeting-location" placeholder="Where do you meet?">
-                <br>
-                <input type="text" name="about-me" placeholder="What is your Club about?">
-                <br>
-                 <!-- <input type="text" name="type" placeholder="What type of Club is it?"> -->
-                <select name="club-type">
-                  <option value="club-type" selected>Course type*</option>
-                  <option value="Academic">Academic</option>
-                  <option value="Professional">Professional</option>
-                  <option value="Community Service">Community Service</option>
-                  <option value="Multicutural">Multicultural</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Religous & Spiritual">Religous & Spiritual</option>
-                  <option value="Greek Life">Greek Life</option>
-                </select>
-              </div>
-              <button type="submit" value="Submit"</button>
-            </form>
-            <br>
-    </div>
 
     <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data" >
       Enter a new message:
@@ -107,12 +53,15 @@ limitations under the License.
 </html>
 
 
+<!--
+  Want a user's "about me" description to display on their user page. We also want to add the ability to edit their description.
+-->
 
-<!-- <div id="about-me-container">Loading...</div>
+<div id="about-me-container">Loading...</div>
   <div id="about-me-form" class="hidden">
   <form action="/about" method="POST">
     <textarea name="about-me" placeholder="about me" rows=4 required></textarea>
     <br/>
     <input type="submit" value="Submit">
   </form>
-</div> -->
+</div>

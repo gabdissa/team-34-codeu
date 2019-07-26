@@ -164,5 +164,6 @@ function buildUI() {
   fetchBlobstoreUrlAndShowForm();
   fetchMessages();
   fetchAboutMe();
+  ClassicEditor.create(document.getElementById('message-input'));
 
 }
